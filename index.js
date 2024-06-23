@@ -1,7 +1,9 @@
 const express = require('express');
+const path = require('path')
 const connectMogodb = require('./connection')
 const urlRouter = require('./routes/url')
 const URL = require('./models/url')
+const staticRouter = require('./routes/static')
 
 
 connectMogodb('mongodb://127.0.0.1:27017/urls')
@@ -14,6 +16,12 @@ connectMogodb('mongodb://127.0.0.1:27017/urls')
 
 const app = express();
 app.use(express.json())
+app.use(express.urlencoded({extended : false}))
+
+app.set('view engine','ejs')
+app.set('views',path.resolve('./views'));
+
+app.use('/',staticRouter)
 app.use('/url', urlRouter)
 
 app.get('/:shortId', async (req, res) => {
