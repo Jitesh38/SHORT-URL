@@ -6,53 +6,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>URL Shortener By Jitesh</title>
     <style>
-        body {
+        body{
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            justify-content: center;
+            align-items: center;
         }
     </style>
+    <!-- <link rel="stylesheet" href="../src/output.css"> -->
+    <link rel="stylesheet" href="../views/style.css">
 </head>
 
 <body>
-    <h1>URL Shortner</h1>
-    <form action="/url" method="post">
-        <label for="url">Enter Url</label>
-        <input type="text" name="url" id="">
-        <input type="submit" value="Submit">
-    </form>
-    <% if (locals.id) { %>
-        <a href="http://localhost:8001/<%= locals.id %>" target="_blank">
-            http://localhost:8001/<%= locals.id %>
+    <div id="form-container">
+            <h1>URL Shortner</h1>
+            <form action="/url" method="post">
+                <label for="url">Enter Url</label>
+                <input type="text" name="url" id="">
+                <input type="submit" value="Submit">
+            </form>
+    </div>
+    <div>
+        <% if (locals.id) { %>
+            <a href="http://localhost:8001/url/<%= locals.id %>" target="_blank">
+                http://localhost:8001/<%= locals.id %>
 
-        </a>
-        <% } %>
+            </a>
+            <% } %>
+    </div>
 
-            <% if (locals.allurls) { %>
-                <table>
-                    <thead>
-                        <th>Index</th>
-                        <th>Short URL</th>
-                        <th>Redirected URL</th>
-                        <th>Total Visits</th>
-                    </thead>
-                    <tbody>
-                        <% allurls.forEach(url=> { %>
-                            <tr>
-                                <td>1</td>
-                                <td>
-                                    <%= url.shortId %>
-                                </td>
-                                <td>
-                                    <%= url.redirectUrl %>
-                                </td>
-                                <td>
-                                    <%= url.visitHistory.length %>
-                                </td>
-                            </tr>
-                            <% }) %>
-                    </tbody>
-                </table>
-                <% } %>
-
+    <div>
+        <% if (locals.allurls) { %>
+            <table border="1">
+                <thead>
+                    <th>Index</th>
+                    <th>Short URL</th>
+                    <th>Redirected URL</th>
+                    <th>Total Visits</th>
+                </thead>
+                <tbody>
+                    <% allurls.forEach(url=> { %>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                <%= url.shortId %>
+                            </td>
+                            <td>
+                                <%= url.redirectUrl %>
+                            </td>
+                            <td>
+                                <%= url.visitHistory.length %>
+                            </td>
+                        </tr>
+                        <% }) %>
+                </tbody>
+            </table>
+            <% } %>
+    </div>
 </body>
 
 </html>
